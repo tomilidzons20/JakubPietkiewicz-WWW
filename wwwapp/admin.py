@@ -8,11 +8,22 @@ from .models import Stanowisko
 
 @admin.register(Osoba)
 class AdminOsoba(admin.ModelAdmin):
+    list_display = [
+        'imie',
+        'nazwisko',
+        'stanowisko_admin',
+    ]
     readonly_fields = [
+        'data_dodania',
+    ]
+    list_filter = [
+        'stanowisko',
         'data_dodania',
     ]
 
 
 @admin.register(Stanowisko)
 class AdminStanowisko(admin.ModelAdmin):
-    pass
+    list_filter = [
+        'nazwa',
+    ]

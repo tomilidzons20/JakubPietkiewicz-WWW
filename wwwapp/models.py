@@ -1,5 +1,5 @@
+from django.contrib import admin
 from django.db import models
-from django.utils import timezone
 
 # Create your models here.
 
@@ -29,6 +29,15 @@ class Osoba(models.Model):
 
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
+
+    @admin.display(description='Stanowisko')
+    def stanowisko_admin(self):
+        return f'{self.stanowisko.nazwa} ({self.stanowisko.id})'
+
+    class Meta:
+        ordering = [
+            'nazwisko'
+        ]
 
 
 class Stanowisko(models.Model):
