@@ -1,16 +1,16 @@
 from django.contrib import admin
 
-from .models import Person
-from .models import Team
+from .models import Osoba
+from .models import Stanowisko
 
 # Register your models here.
 
 
-@admin.register(Person)
-class AdminPerson(admin.ModelAdmin):
+@admin.register(Osoba)
+class AdminOsoba(admin.ModelAdmin):
     pass
 
 
-@admin.register(Team)
-class AdminTeam(admin.ModelAdmin):
+@admin.register(Stanowisko)
+class AdminStanowisko(admin.ModelAdmin):
     pass
