@@ -8,7 +8,9 @@ from .models import Stanowisko
 
 @admin.register(Osoba)
 class AdminOsoba(admin.ModelAdmin):
-    pass
+    readonly_fields = [
+        'data_dodania',
+    ]
 
 
 @admin.register(Stanowisko)
