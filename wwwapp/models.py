@@ -5,11 +5,10 @@ from django.utils import timezone
 
 
 class Osoba(models.Model):
-    PLCI = (
-        ('M', 'Mężczyzna'),
-        ('K', 'Kobieta'),
-        ('I', 'Inne'),
-    )
+    class PLCI(models.IntegerChoices):
+        MEZCZYZNA = 1
+        KOBIETA = 2
+        INNE = 3
 
     imie = models.CharField(
         blank=False,
@@ -17,8 +16,8 @@ class Osoba(models.Model):
     nazwisko = models.CharField(
         blank=False,
     )
-    plec = models.CharField(
-        choices=PLCI,
+    plec = models.IntegerField(
+        choices=PLCI.choices,
     )
     stanowisko = models.ForeignKey(
         'Stanowisko',
