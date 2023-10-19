@@ -1,16 +1,29 @@
 from django.contrib import admin
 
-from .models import Person
-from .models import Team
+from .models import Osoba
+from .models import Stanowisko
 
 # Register your models here.
 
 
-@admin.register(Person)
-class AdminPerson(admin.ModelAdmin):
-    pass
+@admin.register(Osoba)
+class AdminOsoba(admin.ModelAdmin):
+    list_display = [
+        'imie',
+        'nazwisko',
+        'stanowisko_admin',
+    ]
+    readonly_fields = [
+        'data_dodania',
+    ]
+    list_filter = [
+        'stanowisko',
+        'data_dodania',
+    ]
 
 
-@admin.register(Team)
-class AdminTeam(admin.ModelAdmin):
-    pass
+@admin.register(Stanowisko)
+class AdminStanowisko(admin.ModelAdmin):
+    list_filter = [
+        'nazwa',
+    ]
