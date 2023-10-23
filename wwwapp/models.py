@@ -30,10 +30,6 @@ class Osoba(models.Model):
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
 
-    @admin.display(description='Stanowisko')
-    def stanowisko_admin(self):
-        return f'{self.stanowisko.nazwa} ({self.stanowisko.id})'
-
     class Meta:
         ordering = [
             'nazwisko'

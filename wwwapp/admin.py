@@ -21,6 +21,10 @@ class AdminOsoba(admin.ModelAdmin):
         'data_dodania',
     ]
 
+    @admin.display(description='Stanowisko')
+    def stanowisko_admin(self, obj):
+        return f'{obj.stanowisko.nazwa} ({obj.stanowisko.id})'
+
 
 @admin.register(Stanowisko)
 class AdminStanowisko(admin.ModelAdmin):
