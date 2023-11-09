@@ -1,15 +1,15 @@
 # Django
 from django.urls import path
-from .views import osoba_detail
-from .views import osoba_list
-from .views import stanowisko_detail
-from .views import stanowisko_list
+from .views import OsobaDetail
+from .views import OsobaList
+from .views import StanowiskoList
+from .views import StanowiskoDetail
 
 app_name = 'wwwapp'
 
 urlpatterns = [
-    path('osoby/', osoba_list),
-    path('osoby/<int:pk>/', osoba_detail),
-    path('stanowiska/', stanowisko_list),
-    path('stanowiska/<int:pk>/', stanowisko_detail),
+    path('osoby/', OsobaList.as_view(), name='osoba_list'),
+    path('osoby/<int:pk>/', OsobaDetail.as_view(), name='osoba_detail'),
+    path('stanowiska/', StanowiskoList.as_view(), name='stanowisko_list'),
+    path('stanowiska/<int:pk>/', StanowiskoDetail.as_view(), name='stanowisko_detail'),
 ]

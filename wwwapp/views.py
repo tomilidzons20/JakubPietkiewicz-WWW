@@ -1,16 +1,16 @@
+from django.http import Http404
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Osoba
 from .models import Stanowisko
 from .serializers import OsobaSerializer
 from .serializers import StanowiskoSerializer
 
 
-@api_view(['GET', 'POST'])
-def osoba_list(request):
-    if request.method == 'GET':
+class OsobaList(APIView):
+    def get(self, request):
         osoby = Osoba.objects.all().order_by('id')
         nazwisko = request.query_params.get('nazwisko')
         if nazwisko:
@@ -18,7 +18,7 @@ def osoba_list(request):
         serializer = OsobaSerializer(osoby, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request):
         serializer = OsobaSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
@@ -26,37 +26,39 @@ def osoba_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def osoba_detail(request, pk):
-    try:
-        osoba = Osoba.objects.get(pk=pk)
-    except Osoba.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class OsobaDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Osoba.objects.get(pk=pk)
+        except Osoba.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
-        serializer = OsobaSerializer(osoba)
+    def get(self, request, pk):
+        obj = self.get_object(pk)
+        serializer = OsobaSerializer(obj)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = OsobaSerializer(osoba, data=request.data)
+    def put(self, request, pk):
+        obj = self.get_object(pk)
+        serializer = OsobaSerializer(obj, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        osoba.delete()
+    def delete(self, request, pk):
+        obj = self.get_object(pk)
+        obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET', 'POST'])
-def stanowisko_list(request):
-    if request.method == 'GET':
+class StanowiskoList(APIView):
+    def get(self, request):
         stanowiska = Stanowisko.objects.all().order_by('id')
         serializer = StanowiskoSerializer(stanowiska, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request):
         serializer = StanowiskoSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
@@ -64,24 +66,27 @@ def stanowisko_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def stanowisko_detail(request, pk):
-    try:
-        stanowisko = Stanowisko.objects.get(pk=pk)
-    except Stanowisko.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class StanowiskoDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Stanowisko.objects.get(pk=pk)
+        except Stanowisko.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
-        serializer = StanowiskoSerializer(stanowisko)
+    def get(self, request, pk):
+        obj = self.get_object(pk)
+        serializer = StanowiskoSerializer(obj)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = StanowiskoSerializer(stanowisko, data=request.data)
+    def put(self, request, pk):
+        obj = self.get_object(pk)
+        serializer = StanowiskoSerializer(obj, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        stanowisko.delete()
+    def delete(self, request, pk):
+        obj = self.get_object(pk)
+        obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
