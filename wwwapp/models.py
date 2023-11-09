@@ -18,6 +18,7 @@ class Osoba(models.Model):
     )
     plec = models.IntegerField(
         choices=PLCI.choices,
+        default=PLCI.MEZCZYZNA,
     )
     stanowisko = models.ForeignKey(
         'Stanowisko',
