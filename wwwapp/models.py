@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.db import models
-
-# Create your models here.
+from django.utils import timezone
 
 
 class Osoba(models.Model):
@@ -25,7 +24,7 @@ class Osoba(models.Model):
         on_delete=models.CASCADE,
     )
     data_dodania = models.DateField(
-        auto_now_add=True,
+        default=timezone.now().date(),
     )
 
     def __str__(self):
