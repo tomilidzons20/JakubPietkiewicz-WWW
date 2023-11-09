@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Osoba
 from .models import Stanowisko
+from .validators import letters_only
+from .validators import date_check
 
 
 class OsobaSerializer(serializers.Serializer):
@@ -12,6 +14,7 @@ class OsobaSerializer(serializers.Serializer):
     )
     nazwisko = serializers.CharField(
         required=True,
+        validators=[letters_only],
     )
     plec = serializers.ChoiceField(
         choices=Osoba.PLCI.choices,
@@ -21,7 +24,8 @@ class OsobaSerializer(serializers.Serializer):
         queryset=Stanowisko.objects.all(),
     )
     data_dodania = serializers.DateField(
-        read_only=True,
+        validators=[date_check],
+        required=False,
     )
 
     def create(self, validated_data):
@@ -32,6 +36,7 @@ class OsobaSerializer(serializers.Serializer):
         instance.nazwisko = validated_data.get('nazwisko', instance.nazwisko)
         instance.plec = validated_data.get('plec', instance.plec)
         instance.stanowisko = validated_data.get('stanowisko', instance.stanowisko)
+        instance.data_dodania = validated_data.get('data_dodania', instance.data_dodania)
         instance.save()
         return instance
 
