@@ -37,6 +37,7 @@ class OsobaSerializer(serializers.Serializer):
         instance.plec = validated_data.get('plec', instance.plec)
         instance.stanowisko = validated_data.get('stanowisko', instance.stanowisko)
         instance.data_dodania = validated_data.get('data_dodania', instance.data_dodania)
+        instance.wlasciciel = validated_data.get('wlasciciel', instance.wlasciciel)
         instance.save()
         return instance
 
