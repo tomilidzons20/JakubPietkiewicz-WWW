@@ -41,6 +41,12 @@ class Osoba(models.Model):
         ordering = [
             'nazwisko'
         ]
+        permissions = [
+            (
+                'can_view_other_persons',
+                'pozwala na wyswietlanie obiektow Osoba ktorych zalogowany uzytkownik nie jest wlascicielem'
+            )
+        ]
 
 
 class Stanowisko(models.Model):

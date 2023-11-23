@@ -7,6 +7,8 @@ from .views import osoba_list
 from .views import stanowisko_detail
 from .views import stanowisko_list
 from .views import osoba_stanowisko
+from .views import osoba_view
+from .views import OsobaListView
 
 app_name = 'wwwapp'
 
@@ -18,5 +20,6 @@ urlpatterns = [
     path('stanowiska/', stanowisko_list),
     path('stanowiska/<int:pk>/', stanowisko_detail),
     path('stanowisko/<int:pk>/members', osoba_stanowisko),
-
+    path('osoba/view/', osoba_view),
+    path('osoba/list', OsobaListView.as_view()),
 ]
