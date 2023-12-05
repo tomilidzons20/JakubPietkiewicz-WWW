@@ -23,6 +23,7 @@ class Osoba(models.Model):
     stanowisko = models.ForeignKey(
         'Stanowisko',
         on_delete=models.CASCADE,
+        null=True,
     )
     data_dodania = models.DateField(
         default=timezone.now().date(),

@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
-from django.core.exceptions import PermissionDenied
-from django.http.response import HttpResponse, Http404
+from django.http.response import HttpResponse
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -40,6 +38,7 @@ def osoba_list(request):
         if serializer.is_valid():
             serializer.save(wlasciciel=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -170,3 +169,10 @@ class OsobaListView(APIView):
         osoby = Osoba.objects.all()
         serializer = OsobaSerializer(osoby, many=True)
         return Response(serializer.data)
+
+
+def test_view(request):
+    if request.method == 'POST':
+        return HttpResponse(status=201)
+    return HttpResponse(status=200)
+

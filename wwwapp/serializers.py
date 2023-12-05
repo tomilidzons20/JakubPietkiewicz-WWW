@@ -22,6 +22,7 @@ class OsobaSerializer(serializers.Serializer):
     )
     stanowisko = serializers.PrimaryKeyRelatedField(
         queryset=Stanowisko.objects.all(),
+        required=False,
     )
     data_dodania = serializers.DateField(
         validators=[date_check],
