@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
+    'graphene_django',
 
     # Local
     'wwwapp.apps.WwwappConfig',
@@ -147,4 +148,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'wwwapp.permissions.CustomDjangoModelPermissions',
     )
+}
+
+GRAPHENE = {
+    "SCHEMA": "wwwproject.schema.schema"
 }
